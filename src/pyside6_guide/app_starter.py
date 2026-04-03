@@ -8,6 +8,7 @@ import sys
 from PySide6.QtWidgets import (
     QApplication,
     QLabel,
+    QLineEdit,
     QMainWindow,
     QVBoxLayout,
     QWidget,
@@ -21,13 +22,16 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Basic Calculus Apps")
         self.setContentsMargins(12, 12, 12, 12)
         self.resize(320, 200)
-        self.addToolBar(320, 200)
 
         layout = QVBoxLayout()
         title_label = QLabel("Welcome User To Calculus App!")
+        name_input = QLineEdit(placeholderText= "Enter Your Name")
+
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
+        layout.addWidget(name_input)
+
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()

@@ -28,10 +28,15 @@ class MainWindow(QMainWindow):
         title_label = QLabel("Basic App: a simple greeting app.")
 
         # TODO: add a text input for user's name
+        self.username_input = QLineEdit(placeholderText="Enter Your Name Here.")
 
         # TODO: add a push button to greet user
+        sumbit_button = QPushButton("Submit")
+        sumbit_button.clicked.connect(self.get_input)
 
         # TODO: add a label to greet user
+        self.instruction = "First, you may enter your name and then click the buttonn!"
+        self.output_label = QLabel(self.instruction)
 
         """
         Challenges:
@@ -43,6 +48,9 @@ class MainWindow(QMainWindow):
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
+        layout.addWidget(self.username_input)
+        layout.addWidget(sumbit_button)
+        layout.addWidget(self.output_label)
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
@@ -52,6 +60,18 @@ class MainWindow(QMainWindow):
 
         # Set the central widget of the Window.
         self.setCentralWidget(widget)
+
+    def get_input(self):
+        """Get and process inout's information"""
+        output = ""
+        name = self.username_input.text()
+        # Did user enter name?
+        if not name:
+            output = "Warning"
+        else:
+            output = f"Your name is {name}"
+
+        self.output_label.setText(output)
 
 
 if __name__ == "__main__":
