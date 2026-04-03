@@ -18,12 +18,13 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Window Title")
+        self.setWindowTitle("Basic Calculus Apps")
         self.setContentsMargins(12, 12, 12, 12)
-        self.resize(320, 240)
+        self.resize(320, 200)
+        self.addToolBar(320, 200)
 
         layout = QVBoxLayout()
-        title_label = QLabel("Title Label (Make this bigger, please!)")
+        title_label = QLabel("Welcome User To Calculus App!")
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
