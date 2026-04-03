@@ -33,6 +33,9 @@ class MainWindow(QMainWindow):
         # TODO: add a push button to greet user
         sumbit_button = QPushButton("Submit")
         sumbit_button.clicked.connect(self.get_input)
+        clear_button = QPushButton("Clear")
+        clear_button.clicked.connect(self.clear)
+
 
         # TODO: add a label to greet user
         self.instruction = "First, you may enter your name and then click the buttonn!"
@@ -50,6 +53,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(title_label)
         layout.addWidget(self.username_input)
         layout.addWidget(sumbit_button)
+        layout.addWidget(clear_button)
         layout.addWidget(self.output_label)
 
         # [OPTIONAL] Add a stretch to move everything up
@@ -73,6 +77,8 @@ class MainWindow(QMainWindow):
 
         self.output_label.setText(output)
 
+    def clear(self):
+        self.username_input.clear()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

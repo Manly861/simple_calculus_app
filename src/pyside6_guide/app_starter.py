@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QVBoxLayout,
     QWidget,
+    QPushButton,
 )
 
 
@@ -25,12 +26,19 @@ class MainWindow(QMainWindow):
 
         layout = QVBoxLayout()
         title_label = QLabel("Welcome User To Calculus App!")
-        name_input = QLineEdit(placeholderText= "Enter Your Name")
+
+        # create a label 
+        instruction = "This is the basic Calculator App. Click The Button Below To Start!"
+        self.output_label = QLabel(instruction)
+
+        # create a button
+        enter_button = QPushButton("Enter")
 
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
-        layout.addWidget(name_input)
+        layout.addWidget(self.output_label)
+        layout.addWidget(enter_button)
 
 
         # [OPTIONAL] Add a stretch to move everything up
