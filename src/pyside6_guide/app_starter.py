@@ -28,16 +28,14 @@ class MainWindow(QMainWindow):
         title_label = QLabel("Welcome User To Calculus App!")
 
         # create a label 
-        instruction = QLabel("This is the basic Calculator App. Click The Button Below To Start!")
+        instruction = QLabel("This is the basic Calculator App. Enjoying It!")
         self.input_label = QLineEdit(placeholderText= "Enter A Number Here")
         self.answer = "Answer:"
         self.output_label = QLabel(self.answer)
 
-
         # create a button
         enter_button = QPushButton("=")
         enter_button.clicked.connect(self.process_input)
-
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
@@ -57,39 +55,44 @@ class MainWindow(QMainWindow):
         
     def process_input(self):
         """process the input and mathematical function"""
-        # Check where is the arithmetic operation (+, -, *, /)
-        operation = ""
-        if "+" or "-" or "*" or "/" in self.input_label.text():
-            for i in range(len(self.input_label.text())):
-                if not self.input_label.text()[i].isdigit():
-                    operation = self.input_label.text()[i]
-        
-        # Identify where is number and where is operation
-        str_a = self.input_label.text()[ : (self.input_label.text().find(operation))]
-        str_b = self.input_label.text()[(self.input_label.text().find(operation)) + 1 : ]
-        num_a = float(str_a)
-        num_b = float(str_b)
+        try:
+            # Check where is the arithmetic operation (+, -, *, /)
+            operation = ""
+            if "+" or "-" or "*" or "/" in self.input_label.text():
+                for i in range(len(self.input_label.text())):
+                    if not self.input_label.text()[i].isdigit():
+                        operation = self.input_label.text()[i]
+            
+            # Identify where is number and where is operation
+            str_a = self.input_label.text()[ : (self.input_label.text().find(operation))]
+            str_b = self.input_label.text()[(self.input_label.text().find(operation)) + 1 : ]
+            num_a = float(str_a)
+            num_b = float(str_b)
 
-        # Is it a summation?
-        if operation == "+":
-            output = str(num_a + num_b)
+            # Is it a summation?
+            if operation == "+":
+                output = str(num_a + num_b)
 
-        # Is it a subtraction?
-        elif operation == "-":
-            output = str(num_a - num_b)
+            # Is it a subtraction?
+            elif operation == "-":
+                output = str(num_a - num_b)
 
-        # Is it a multiplication?
-        elif operation == "x":
-            output = str(num_a * num_b)
+            # Is it a multiplication?
+            elif operation == "x":
+                output = str(num_a * num_b)
 
-        # Is it a division?
-        elif operation == "/":
-            output = str(num_a / num_b)
+            # Is it a division?
+            elif operation == "/":
+                output = str(num_a / num_b)
 
-        else:
-            output = "Warning"
-        
-        self.output_label.setText(f"Answer: {output}")
+            else:
+                output = "Warning"
+            
+            # Print the final result
+            self.output_label.setText(f"Answer: {output}")
+        except ValueError:
+            self.output_label.setText("ERROR!!!")
+
 
 
 if __name__ == "__main__":
