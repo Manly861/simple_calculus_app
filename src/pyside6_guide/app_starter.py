@@ -28,18 +28,27 @@ class MainWindow(QMainWindow):
         title_label = QLabel("Welcome User To Calculus App!")
 
         # create a label 
-        instruction = "This is the basic Calculator App. Click The Button Below To Start!"
-        self.output_label = QLabel(instruction)
+        instruction = QLabel("This is the basic Calculator App. Click The Button Below To Start!")
+        self.a_input_label = QLineEdit(placeholderText= "Enter A Number Here")
+        self.b_input_label = QLineEdit(placeholderText= "Enter A Number Here")
+        self.plus_input_label = QLineEdit(placeholderText= "Enter A Mathematical Here")
+        self.answer = "Answer:"
+        self.output_label = QLabel(self.answer)
+
 
         # create a button
-        enter_button = QPushButton("Enter")
+        enter_button = QPushButton("=")
+        enter_button.clicked.connect(self.process_input)
 
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
-        layout.addWidget(self.output_label)
+        layout.addWidget(instruction)
+        layout.addWidget(self.a_input_label)
+        layout.addWidget(self.b_input_label)
+        layout.addWidget(self.plus_input_label)
+        layout.addWidget(self.output_label) 
         layout.addWidget(enter_button)
-
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
@@ -49,6 +58,24 @@ class MainWindow(QMainWindow):
 
         # Set the central widget of the Window.
         self.setCentralWidget(widget)
+        
+    def process_input(self):
+        """process the input and mathematical function"""
+        num_a = float(self.a_input_label.text())
+        num_b = float(self.b_input_label.text())
+
+        if self.plus_input_label.text() == "+":
+            output = str(num_a + num_b)
+        elif self.plus_input_label.text() == "-":
+            output = str(num_a - num_b)
+        elif self.plus_input_label.text() == "x":
+            output = str(num_a * num_b)
+        elif self.plus_input_label.text() == ":":
+            output = str(num_a / num_b)
+        else:
+            output = "Warning"
+        
+        self.output_label.setText(output)
 
 
 if __name__ == "__main__":

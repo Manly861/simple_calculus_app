@@ -38,7 +38,7 @@ class MainWindow(QMainWindow):
 
 
         # TODO: add a label to greet user
-        self.instruction = "First, you may enter your name and then click the buttonn!"
+        self.instruction = "First, you may enter your name and then click the button!"
         self.output_label = QLabel(self.instruction)
 
         """
@@ -79,10 +79,16 @@ class MainWindow(QMainWindow):
 
     def clear(self):
         self.username_input.clear()
+        self.clear
+        self.hide()
+        window2 = MainWindow()
+        window2.username_input.setText("Hello, Man!")
+        window2.output_label.setText("This is window 2. Which window shows?")
+        window2.show()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
-
+    
     app.exec()
