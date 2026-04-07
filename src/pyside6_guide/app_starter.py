@@ -71,25 +71,25 @@ class MainWindow(QMainWindow):
 
             # Is it a summation?
             if operation == "+":
-                output = str(num_a + num_b)
+                answer = str(num_a + num_b)
 
             # Is it a subtraction?
             elif operation == "-":
-                output = str(num_a - num_b)
+                answer = str(num_a - num_b)
 
             # Is it a multiplication?
             elif operation == "x":
-                output = str(num_a * num_b)
+                answer = str(num_a * num_b)
 
             # Is it a division?
             elif operation == "/":
-                output = str(num_a / num_b)
+                answer = str(num_a / num_b)
 
             else:
-                output = "Warning"
+                answer = "Warning"
             
             # Print the final result
-            self.output_label.setText(f"Answer: {output}")
+            self.output_label.setText(f"Answer: {answer}")
         except ValueError:
             self.output_label.setText("ERROR!!!")
 
