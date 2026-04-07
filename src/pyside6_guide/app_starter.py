@@ -57,17 +57,35 @@ class MainWindow(QMainWindow):
         
     def process_input(self):
         """process the input and mathematical function"""
-        if "+" in self.input_label.text() :
-            num_a = float(self.input_label.text()[ : (self.input_label.text().find("+"))])
-            num_b = float(self.input_label.text()[(self.input_label.text().find("+")) + 1 : ])
+        # Check where is the arithmetic operation (+, -, *, /)
+        operation = ""
+        if "+" or "-" or "*" or "/" in self.input_label.text():
+            for i in range(len(self.input_label.text())):
+                if not self.input_label.text()[i].isdigit():
+                    operation = self.input_label.text()[i]
+        
+        # Identify where is number and where is operation
+        str_a = self.input_label.text()[ : (self.input_label.text().find(operation))]
+        str_b = self.input_label.text()[(self.input_label.text().find(operation)) + 1 : ]
+        num_a = float(str_a)
+        num_b = float(str_b)
 
+        # Is it a summation?
+        if operation == "+":
             output = str(num_a + num_b)
-        elif self.plus_input_label.text() == "-":
+
+        # Is it a subtraction?
+        elif operation == "-":
             output = str(num_a - num_b)
-        elif self.plus_input_label.text() == "x":
+
+        # Is it a multiplication?
+        elif operation == "x":
             output = str(num_a * num_b)
-        elif self.plus_input_label.text() == "/":
+
+        # Is it a division?
+        elif operation == "/":
             output = str(num_a / num_b)
+
         else:
             output = "Warning"
         
