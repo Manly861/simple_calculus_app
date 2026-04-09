@@ -11,6 +11,8 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QMainWindow,
     QVBoxLayout,
+    QHBoxLayout,
+    QGridLayout,
     QWidget,
     QPushButton,
 )
@@ -24,7 +26,7 @@ class MainWindow(QMainWindow):
         self.setContentsMargins(12, 12, 12, 12)
         self.resize(320, 200)
 
-        layout = QVBoxLayout()
+        layout = QGridLayout()
         title_label = QLabel("Welcome User To Calculus App!")
 
         # create a label 
@@ -36,23 +38,27 @@ class MainWindow(QMainWindow):
         # create a button
         enter_button = QPushButton("=")
         enter_button.clicked.connect(self.process_input)
+        num_1_button = QPushButton("1")
+        num_2_button = QPushButton("2")
+
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
         layout.addWidget(instruction)
         layout.addWidget(self.input_label)
         layout.addWidget(self.output_label) 
-        layout.addWidget(enter_button)
+        layout.addWidget(enter_button, 2, 1)
+        layout.addWidget(num_1_button)
+        layout.addWidget(num_2_button)
 
         # [OPTIONAL] Add a stretch to move everything up
-        layout.addStretch()
-
         widget = QWidget()
         widget.setLayout(layout)
 
         # Set the central widget of the Window.
         self.setCentralWidget(widget)
-        
+    
+
     def process_input(self):
         """process the input and mathematical function"""
         try:
@@ -60,8 +66,6 @@ class MainWindow(QMainWindow):
             self.output_label.setText(f"Answer: {answer}")
         except NameError and SyntaxError:
             self.output_label.setText("ERROR!!!")
-
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
