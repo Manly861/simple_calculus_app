@@ -1,67 +1,68 @@
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QWidget
 import sys
+from PySide6.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QWidget
+
 
 class MyWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Nhập liệu từ Button")
 
-        # 1. Tạo ô nhập liệu
-        self.line_edit = QLineEdit()
-        
-        # 2. Tạo các nút bấm
-        btn1 = QPushButton("1")
-        btn2 = QPushButton("2")
-        btn3 = QPushButton("3")
-        btn4 = QPushButton("4")
-        btn5 = QPushButton("5")
-        btn6 = QPushButton("6")
-        btn7 = QPushButton("7")
-        btn8 = QPushButton("8")
-        btn9 = QPushButton("9")
-        btn0 = QPushButton("0")
-
-        # 3. Kết nối sự kiện (Dùng lambda để truyền giá trị)
-        btn1.clicked.connect(lambda: self.add_number("1"))
-        btn2.clicked.connect(lambda: self.add_number("2"))
-        btn3.clicked.connect(lambda: self.add_number("3"))
-        btn4.clicked.connect(lambda: self.add_number("4"))
-        btn5.clicked.connect(lambda: self.add_number("5"))
-        btn6.clicked.connect(lambda: self.add_number("6"))
-        btn7.clicked.connect(lambda: self.add_number("7"))
-        btn8.clicked.connect(lambda: self.add_number("8"))
-        btn9.clicked.connect(lambda: self.add_number("9"))
-        btn0.clicked.connect(lambda: self.add_number("0"))
-    
-
-        # 4. Layout
         layout = QVBoxLayout()
         h_layout = QHBoxLayout()
         h_layout_1 = QHBoxLayout()
         h_layout_2 = QHBoxLayout()
         h_layout_3 = QHBoxLayout()
 
-
-
+        # 1. Tạo ô nhập liệu
+        self.line_edit = QLineEdit()
         
-        h_layout.addWidget(btn1)
-        h_layout.addWidget(btn2)
-        h_layout.addWidget(btn3)
-        h_layout_1.addWidget(btn4)
-        h_layout_1.addWidget(btn5)
-        h_layout_1.addWidget(btn6)
-        h_layout_2.addWidget(btn7)
-        h_layout_2.addWidget(btn8)
-        h_layout_2.addWidget(btn9)
+        # 2. Tạo các nút bấm
+        # for in in range
+        btn0 = QPushButton("0")
+        for i in range(9):
+            number_button = QPushButton(str(i+1))
+            number_button.setFixedSize(30,30)
+            number_button.clicked.connect(lambda _, x=str(i+1): self.add_number(x))
+            if i < 3:
+                h_layout.addWidget(number_button)
+            elif i < 6:
+                h_layout_1.addWidget(number_button)
+            else:
+                h_layout_2.addWidget(number_button)
+
+          
+
+
+
+        # keep
+        btn_enter = QPushButton("=")
+        btn_percentage = QPushButton("%")
+        btn_enter.setFixedSize(30,30) 
+        btn_percentage.setFixedSize(30,30) 
+
+        # 3. Kết nối sự kiện (Dùng lambda để truyền giá trị)
+        # for in in range
+        # keep
+        btn_enter.clicked.connect(lambda: self.add_number("="))
+    
+
+        # 4. Layout
+        
+
+
+        # for in in range
+
         h_layout_3.addWidget(btn0)
-
-
+        
+        #keep
+        h_layout_3.addWidget(btn_percentage)
+        h_layout_3.addWidget(btn_enter)
+        
         layout.addWidget(self.line_edit)
         layout.addLayout(h_layout)
         layout.addLayout(h_layout_1)
         layout.addLayout(h_layout_2)
         layout.addLayout(h_layout_3)
-
 
         
         self.setLayout(layout)
