@@ -17,6 +17,7 @@ class MyWindow(QWidget):
 
         layout = QVBoxLayout()
         h_layout = QHBoxLayout()
+        h_layout_0 = QHBoxLayout()
         h_layout_1 = QHBoxLayout()
         h_layout_2 = QHBoxLayout()
         h_layout_3 = QHBoxLayout()
@@ -36,7 +37,9 @@ class MyWindow(QWidget):
 
         # Function
         del_btn = QPushButton("DEL")
-        clear_btn = QPushButton("CLEAR")
+        clear_btn = QPushButton("AC")
+        del_btn.setFixedSize(40, 30)
+        clear_btn.setFixedSize(40, 30)
 
         # Special Operation
         dot_btn = QPushButton(".")
@@ -58,8 +61,10 @@ class MyWindow(QWidget):
         btn_subtract.setFixedSize(30,30)
         btn_divide.setFixedSize(30,30)
         btn_multiply.setFixedSize(30,30)
-
-
+        
+        h_layout_0.addStretch()
+        h_layout_0.addWidget(clear_btn)
+        h_layout_0.addWidget(del_btn)
 
         # 2. Tạo các nút bấm
         # for in in range
@@ -88,19 +93,19 @@ class MyWindow(QWidget):
         h_layout_3.addWidget(btn0)
         h_layout_3.addWidget(btn_enter)
         h_layout_3.addWidget(btn_sum)
-        h_layout_3.addWidget(del_btn)
-        h_layout_3.addWidget(clear_btn)
-        h_layout_3.addWidget(dot_btn)
-        h_layout_3.addWidget(percentage_btn)
+        
+        
 
 
         
         # adding layout to main window
         layout.addWidget(self.line_edit)
+        layout.addLayout(h_layout_0)
         layout.addLayout(h_layout)
         layout.addLayout(h_layout_1)
         layout.addLayout(h_layout_2)
         layout.addLayout(h_layout_3)
+
         
         self.setLayout(layout)
 
