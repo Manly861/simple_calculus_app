@@ -33,13 +33,16 @@ class MyWindow(QWidget):
         btn_subtract = QPushButton("-")
         btn_multiply = QPushButton("x")
         btn_divide = QPushButton("/")
-
+        del_btn = QPushButton("DEL")
+        clear_btn = QPushButton("CLEAR")
         # adding click funtion
         btn_enter.clicked.connect(lambda: self.add_number("="))
         btn_sum.clicked.connect(lambda: self.add_number("+"))
         btn_subtract.clicked.connect(lambda: self.add_number("-"))
         btn_divide.clicked.connect(lambda: self.add_number("/"))
         btn_multiply.clicked.connect(lambda: self.add_number("*"))
+        del_btn.clicked.connect(lambda: self.delete())
+        clear_btn.clicked.connect(lambda: self.clear())
 
         btn_enter.setFixedSize(72, 30)
         btn_sum.setFixedSize(30,30)
@@ -75,8 +78,10 @@ class MyWindow(QWidget):
         # adding layout 3 to window
         h_layout_3.addWidget(btn0)
         h_layout_3.addWidget(btn_enter)
-        h_layout_3.addStretch()
         h_layout_3.addWidget(btn_sum)
+        h_layout_3.addWidget(del_btn)
+        h_layout_3.addWidget(clear_btn)
+
 
         
         # adding layout to main window
@@ -92,6 +97,14 @@ class MyWindow(QWidget):
         # Lấy chữ hiện tại + số mới nhấn
         current_text = self.line_edit.text()
         self.line_edit.setText(current_text + num)
+
+    def clear(self):
+        self.line_edit.clear()
+    
+    def delete(self):
+        current_text = self.line_edit.text()
+        new_text = current_text[:-1]
+        self.line_edit.setText(new_text)
 
 app = QApplication(sys.argv)
 window = MyWindow()
