@@ -27,14 +27,21 @@ class MyWindow(QWidget):
         btn0.clicked.connect(lambda: self.add_number("0"))
         btn0.setFixedSize(30,30)
 
- 
+        # Operation
         btn_enter = QPushButton("=")
         btn_sum = QPushButton("+")
         btn_subtract = QPushButton("-")
         btn_multiply = QPushButton("x")
         btn_divide = QPushButton("/")
+
+        # Function
         del_btn = QPushButton("DEL")
         clear_btn = QPushButton("CLEAR")
+
+        # Special Operation
+        dot_btn = QPushButton(".")
+        percentage_btn = QPushButton("%")
+
         # adding click funtion
         btn_enter.clicked.connect(lambda: self.add_number("="))
         btn_sum.clicked.connect(lambda: self.add_number("+"))
@@ -43,6 +50,8 @@ class MyWindow(QWidget):
         btn_multiply.clicked.connect(lambda: self.add_number("*"))
         del_btn.clicked.connect(lambda: self.delete())
         clear_btn.clicked.connect(lambda: self.clear())
+        dot_btn.clicked.connect(lambda: self.add_number("."))
+        percentage_btn.clicked.connect(lambda: self.add_number("%"))
 
         btn_enter.setFixedSize(72, 30)
         btn_sum.setFixedSize(30,30)
@@ -81,6 +90,8 @@ class MyWindow(QWidget):
         h_layout_3.addWidget(btn_sum)
         h_layout_3.addWidget(del_btn)
         h_layout_3.addWidget(clear_btn)
+        h_layout_3.addWidget(dot_btn)
+        h_layout_3.addWidget(percentage_btn)
 
 
         
