@@ -40,17 +40,17 @@ class MainWindow(QMainWindow):
         enter_button.clicked.connect(self.process_input)
         num_1_button = QPushButton("1")
         num_2_button = QPushButton("2")
-
+        num_3_button = QPushButton("3")
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
         layout.addWidget(instruction)
         layout.addWidget(self.input_label)
         layout.addWidget(self.output_label) 
-        layout.addWidget(enter_button, 2, 1)
-        layout.addWidget(num_1_button)
-        layout.addWidget(num_2_button)
-
+        layout.addWidget(enter_button)
+        layout.addWidget(num_1_button, 0, 0)
+        layout.addWidget(num_2_button, 0, 1)
+        layout.addWidget(num_3_button, 0, 2)
         # [OPTIONAL] Add a stretch to move everything up
         widget = QWidget()
         widget.setLayout(layout)

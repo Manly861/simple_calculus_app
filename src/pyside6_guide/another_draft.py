@@ -1,5 +1,13 @@
 import sys
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QWidget
+from PySide6.QtWidgets import (
+    QApplication, 
+    QVBoxLayout, 
+    QHBoxLayout, 
+    QLineEdit, 
+    QPushButton, 
+    QWidget,
+    QSizePolicy, 
+    )
 
 
 class MyWindow(QWidget):
@@ -17,6 +25,8 @@ class MyWindow(QWidget):
         self.line_edit = QLineEdit()
         btn0 = QPushButton("0")
         btn0.clicked.connect(lambda: self.add_number("0"))
+        btn0.setFixedSize(30,30)
+
  
         btn_enter = QPushButton("=")
         btn_sum = QPushButton("+")
@@ -31,12 +41,20 @@ class MyWindow(QWidget):
         btn_divide.clicked.connect(lambda: self.add_number("/"))
         btn_multiply.clicked.connect(lambda: self.add_number("*"))
 
+        btn_enter.setFixedSize(72, 30)
+        btn_sum.setFixedSize(30,30)
+        btn_subtract.setFixedSize(30,30)
+        btn_divide.setFixedSize(30,30)
+        btn_multiply.setFixedSize(30,30)
+
+
 
         # 2. Tạo các nút bấm
         # for in in range
         for i in range(9):
             # add number button
             number_button = QPushButton(str(i+1))
+            number_button.setFixedSize(30,30)
             number_button.clicked.connect(lambda _, x=str(i+1): self.add_number(x))
             if i < 3:
                 h_layout.addWidget(number_button)
@@ -54,19 +72,19 @@ class MyWindow(QWidget):
                 h_layout_2.addWidget(btn_subtract)
 
 
-        # keep
+        # adding layout 3 to window
         h_layout_3.addWidget(btn0)
         h_layout_3.addWidget(btn_enter)
+        h_layout_3.addStretch()
         h_layout_3.addWidget(btn_sum)
 
         
-        # adding Widgiet
+        # adding layout to main window
         layout.addWidget(self.line_edit)
         layout.addLayout(h_layout)
         layout.addLayout(h_layout_1)
         layout.addLayout(h_layout_2)
         layout.addLayout(h_layout_3)
-
         
         self.setLayout(layout)
 
