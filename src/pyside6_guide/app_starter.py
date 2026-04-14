@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
     QWidget,
     QPushButton,
 )
+from calculator_app_screen import CalculatorAppWindow
 
 
 class MainWindow(QMainWindow):
@@ -35,7 +36,10 @@ class MainWindow(QMainWindow):
 
         # create a button
         enter_button = QPushButton("=")
+        back_button = QPushButton("BACK")
         enter_button.clicked.connect(self.process_input)
+        back_button.clicked.connect(self.change_window)
+
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
@@ -43,6 +47,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.input_label)
         layout.addWidget(self.output_label) 
         layout.addWidget(enter_button)
+        layout.addWidget(back_button)
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
@@ -90,14 +95,18 @@ class MainWindow(QMainWindow):
             
             # Print the final result
             self.output_label.setText(f"Answer: {answer}")
-        except ValueError:
-            self.output_label.setText("ERROR!!!")
+        except ValueError and AttributeError:
+            self.output_label.setText("ERROR")
 
+    def change_window(self):
+        self.calculator_screen = CalculatorAppWindow()
+        self.calculator_screen.show()
+        self.hide()
+        
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
-
     app.exec()
