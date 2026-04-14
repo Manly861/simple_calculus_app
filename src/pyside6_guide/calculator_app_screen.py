@@ -50,12 +50,14 @@ class CalculatorAppWindow(QWidget):
                     if text == "ANS":
                         layout.addWidget(buttons, row, column, 1, 2)
                     elif text == "=":
-                        buttons.setFixedSize(width_equal_button, height_equal_button)
+                        buttons.setFixedSize(width_equal_button,
+                                            height_equal_button)
                         layout.addWidget(buttons, row, column, 2, 1)
                     elif text == "Back": 
                         layout.addWidget(buttons, row, column, 1, 2)
                     else:
-                        buttons.setFixedSize(number_button_size, number_button_size)
+                        buttons.setFixedSize(number_button_size,
+                                            number_button_size)
                         layout.addWidget(buttons, row, column)
 
                     # Is it a DEL, AC or equal button?
@@ -71,7 +73,9 @@ class CalculatorAppWindow(QWidget):
                     elif text == "Back":
                         buttons.clicked.connect(self.go_back_to_main_window)
                     else:
-                        buttons.clicked.connect(lambda _, x=str(text): self.add_number(x))  
+                        buttons.clicked.connect(
+                            lambda _, x=str(text): self.add_number(x)
+                            )  
 
         # adding layout to main window
         layout.addLayout(input_label, 0,0 ,1, 4)
@@ -79,7 +83,6 @@ class CalculatorAppWindow(QWidget):
 
     def add_number(self, num):
         """Enter the number corresponding to the pressed button"""
-        
         current_text = self.line_edit.text()
         self.line_edit.setAlignment(Qt.AlignLeft)
         self.line_edit.setText(current_text + num)
@@ -87,17 +90,23 @@ class CalculatorAppWindow(QWidget):
     def process_input(self):
         """process the input and print the output"""
         try:
+            # Align the line edit and using eval() function to process inputs
             self.line_edit.setAlignment(Qt.AlignRight)
             self.answer = round(eval(self.line_edit.text()), 2)
             self.line_edit.setText(str(self.answer))
+
         except (NameError, SyntaxError, TypeError, ZeroDivisionError ):
             self.line_edit.setText("ERROR!!!")
     
     def get_the_previous_answer(self):
         """recall the previous output"""
         try:
+            # Align the text in line edit and set current_text
             self.line_edit.setAlignment(Qt.AlignLeft)
             current_text = self.line_edit.text()
+
+            # Is there the answer that is not deleted?
+            # if yes, then set current_text to empty space
             if current_text == str(self.answer):
                 current_text = ""
             new_text_display = current_text + str(self.answer)
@@ -107,20 +116,24 @@ class CalculatorAppWindow(QWidget):
             self.line_edit.setAlignment(Qt.AlignRight)
             self.line_edit.setText("ERROR!!!")
 
-    def clear(self):
-        """Clear the text in the line edit"""
-        self.line_edit.clear()
-
-    
     def delete(self):
         """delete one letter each time it is pressed"""
+        # Is it a "ERROR!!!" message?
+        # if yes, clear it
         if self.line_edit.text() == "ERROR!!!":
             self.line_edit.clear()
+
+        # if no, delete one letter each time the button is pressed
         else:
             current_text = self.line_edit.text()
             new_text = current_text[:-1]
             self.line_edit.setText(new_text)
 
+    def clear(self):
+        """Clear the text in the line edit"""
+        self.line_edit.clear()
+
+    
     def go_back_to_main_window(self):
         self.parent.show()
         self.hide()
