@@ -20,6 +20,7 @@ from calculator_app_screen import CalculatorAppWindow
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        
 
         self.setWindowTitle("Basic Calculus Apps")
         self.setContentsMargins(12, 12, 12, 12)
@@ -36,9 +37,9 @@ class MainWindow(QMainWindow):
 
         # create a button
         enter_button = QPushButton("=")
-        back_button = QPushButton("BACK")
+        change_button = QPushButton("Change")
         enter_button.clicked.connect(self.process_input)
-        back_button.clicked.connect(self.change_window)
+        change_button.clicked.connect(self.change_window)
 
 
         # add widgets & layouts to main layout
@@ -47,7 +48,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.input_label)
         layout.addWidget(self.output_label) 
         layout.addWidget(enter_button)
-        layout.addWidget(back_button)
+        layout.addWidget(change_button)
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
@@ -99,7 +100,7 @@ class MainWindow(QMainWindow):
             self.output_label.setText("ERROR")
 
     def change_window(self):
-        self.calculator_screen = CalculatorAppWindow()
+        self.calculator_screen = CalculatorAppWindow(parent = self)
         self.calculator_screen.show()
         self.hide()
         
