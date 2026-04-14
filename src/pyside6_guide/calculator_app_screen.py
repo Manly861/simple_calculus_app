@@ -98,8 +98,11 @@ class CalculatorAppWindow(QWidget):
         try:
             self.line_edit.setAlignment(Qt.AlignLeft)
             current_text = self.line_edit.text()
+            if current_text == str(self.answer):
+                current_text = ""
             new_text_display = current_text + str(self.answer)
             self.line_edit.setText(new_text_display)
+            
         except AttributeError:
             self.line_edit.setAlignment(Qt.AlignRight)
             self.line_edit.setText("ERROR!!!")
