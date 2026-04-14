@@ -92,12 +92,12 @@ class MainWindow(QMainWindow):
                 answer = str(num_a / num_b)
 
             else:
-                answer = "Warning"
+                answer = "ERROR!!!"
             
             # Print the final result
             self.output_label.setText(f"Answer: {answer}")
-        except ValueError and AttributeError:
-            self.output_label.setText("ERROR")
+        except (ValueError, AttributeError):
+            self.output_label.setText("ERROR!!!")
 
     def change_window(self):
         self.calculator_screen = CalculatorAppWindow(parent = self)

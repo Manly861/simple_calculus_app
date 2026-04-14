@@ -17,6 +17,12 @@ class CalculatorAppWindow(QWidget):
         self.setWindowTitle("Calculator App Screen")
         self.parent = parent
 
+        # Set intial values of size
+        number_button_size = 30
+        width_equal_button = 30
+        height_equal_button = 65
+        
+        # Define the layouts
         input_label = QHBoxLayout()
         layout = QGridLayout()
         self.line_edit = QLineEdit()
@@ -29,10 +35,9 @@ class CalculatorAppWindow(QWidget):
             ["0", "-", "+", ""],
             ["", "Back", "", ""]
         ]
-
+        
+        # Create the calculator layout by using for loops
         input_label.addWidget(self.line_edit)
-
-        # use for loops to create the layout
         for row, row_data in enumerate(calculator_layout):
             for column, text in enumerate(row_data):
 
@@ -43,15 +48,14 @@ class CalculatorAppWindow(QWidget):
                     # Is it a equal, ANS, and back button?
                     # if it is, adjust the size of it  
                     if text == "ANS":
-                        buttons.setFixedSize(65, 25)
                         layout.addWidget(buttons, row, column, 1, 2)
                     elif text == "=":
-                        buttons.setFixedSize(30, 65)
+                        buttons.setFixedSize(width_equal_button, height_equal_button)
                         layout.addWidget(buttons, row, column, 2, 1)
                     elif text == "Back": 
                         layout.addWidget(buttons, row, column, 1, 2)
                     else:
-                        buttons.setFixedSize(30, 30)
+                        buttons.setFixedSize(number_button_size, number_button_size)
                         layout.addWidget(buttons, row, column)
 
                     # Is it a DEL, AC or equal button?
@@ -75,36 +79,44 @@ class CalculatorAppWindow(QWidget):
 
     def add_number(self, num):
         """Enter the number corresponding to the pressed button"""
+        
         current_text = self.line_edit.text()
         self.line_edit.setAlignment(Qt.AlignLeft)
         self.line_edit.setText(current_text + num)
     
     def process_input(self):
         """process the input and print the output"""
-        self.line_edit.setAlignment(Qt.AlignRight)
         try:
+            self.line_edit.setAlignment(Qt.AlignRight)
             self.answer = round(eval(self.line_edit.text()), 2)
             self.line_edit.setText(str(self.answer))
-        except NameError and SyntaxError and TypeError:
-            self.output_label.setText("ERROR!!!")
+        except (NameError, SyntaxError, TypeError, ZeroDivisionError ):
+            self.line_edit.setText("ERROR!!!")
     
     def get_the_previous_answer(self):
         """recall the previous output"""
         try:
             self.line_edit.setAlignment(Qt.AlignLeft)
-            self.line_edit.setText(str(self.answer))
+            current_text = self.line_edit.text()
+            new_text_display = current_text + str(self.answer)
+            self.line_edit.setText(new_text_display)
         except AttributeError:
-            self.output_label.setText("ERROR!!!")
+            self.line_edit.setAlignment(Qt.AlignRight)
+            self.line_edit.setText("ERROR!!!")
 
     def clear(self):
         """Clear the text in the line edit"""
         self.line_edit.clear()
+
     
     def delete(self):
         """delete one letter each time it is pressed"""
-        current_text = self.line_edit.text()
-        new_text = current_text[:-1]
-        self.line_edit.setText(new_text)
+        if self.line_edit.text() == "ERROR!!!":
+            self.line_edit.clear()
+        else:
+            current_text = self.line_edit.text()
+            new_text = current_text[:-1]
+            self.line_edit.setText(new_text)
 
     def go_back_to_main_window(self):
         self.parent.show()
