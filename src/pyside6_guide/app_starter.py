@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         
-
+        # Set main window and layout
         self.setWindowTitle("Basic Calculus Apps")
         self.setContentsMargins(12, 12, 12, 12)
         self.resize(320, 200)
@@ -33,17 +33,20 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout()
         self.review_layout = QHBoxLayout()
         title_label = QLabel("Welcome User To Calculus App!")
-        # Create a seperator line
-        self.line_separator = QFrame()
-        self.line_separator.setFrameShape(QFrame.HLine)
 
-        # create a label 
+        # create labels and a line edit
         instruction = QLabel("This is the basic Calculator App. Enjoying It!")
         self.review_label = QLabel("Do You Like My Calculator?")
         self.review_label.setAlignment(Qt.AlignCenter)
+        self.appreciation = QLabel("...")
+        self.appreciation.setAlignment(Qt.AlignCenter)
         self.input_label = QLineEdit(placeholderText= "Enter A Number Here")
         self.answer = "Answer:"
         self.output_label = QLabel(self.answer)
+
+        # Create a seperator line
+        self.line_separator = QFrame()
+        self.line_separator.setFrameShape(QFrame.HLine)
 
         # create a button
         enter_button = QPushButton("=")
@@ -52,8 +55,8 @@ class MainWindow(QMainWindow):
         change_button.clicked.connect(self.change_window)
 
         # Create check boxes
-        self.like_box = QCheckBox("Yes, I LIke It", self)
-        self.not_like_box = QCheckBox("No, I Don't LIke It", self)
+        self.like_box = QCheckBox("Yes, I Like It", self)
+        self.not_like_box = QCheckBox("No, I Don't Like It", self)
         self.like_box.stateChanged.connect(self.like_box_stage_change)
         self.not_like_box.stateChanged.connect(self.not_like_box_stage_change)
 
@@ -62,6 +65,7 @@ class MainWindow(QMainWindow):
         self.review_label.hide()
         self.like_box.hide()
         self.not_like_box.hide()
+        self.appreciation.hide()
 
 
         # add widgets & layouts to main layout
@@ -76,10 +80,11 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.line_separator)
         layout.addWidget(self.review_label)
         
-        # Add check box layout into main window
+        # Add review layout (check boxes and appreciate message)
         layout.addLayout(self.review_layout)
         self.review_layout.addWidget(self.like_box)
         self.review_layout.addWidget(self.not_like_box)
+        layout.addWidget(self.appreciation)
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
@@ -135,6 +140,8 @@ class MainWindow(QMainWindow):
         self.review_label.show()
         self.like_box.show()
         self.not_like_box.show()
+        self.appreciation.show()
+
 
     def process_and_enable(self):
         self.process_input()
@@ -143,12 +150,17 @@ class MainWindow(QMainWindow):
     def like_box_stage_change(self, state):
         if state == 2:
             self.not_like_box.setChecked(False)
-            print("Thank You!")
+            self.appreciation.setText("<b><i>Thank You So Much!!!<i><b>")
+        elif state == 0:
+            self.appreciation.setText("<i> I'm waiting for your response :) <i>")
+
 
     def not_like_box_stage_change(self, state):
         if state == 2:
             self.like_box.setChecked(False)
-            print("Thank You For Enjoying It!")
+            self.appreciation.setText("<b><i> Thank You For Enjoying It! <i><b>")
+        elif state ==  0:
+            self.appreciation.setText("<i>Just Take Time! I'm waiting for your response :)<i>")
 
     def change_window(self):
         self.calculator_screen = CalculatorAppWindow(parent = self)
