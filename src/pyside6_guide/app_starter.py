@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         self.resize(320, 200)
 
         layout = QVBoxLayout()
-        self.check_box_layout = QHBoxLayout()
+        self.review_layout = QHBoxLayout()
         title_label = QLabel("Welcome User To Calculus App!")
 
         # create a label 
@@ -45,12 +45,14 @@ class MainWindow(QMainWindow):
         change_button.clicked.connect(self.change_window)
 
         # Create check boxes
+        self.review_label = QLabel("Do You Like My Calculator?")
         self.like_box = QCheckBox("Yes, I LIke It", self)
         self.not_like_box = QCheckBox("No, I Don't LIke It", self)
         self.like_box.stateChanged.connect(self.like_box_stage_change)
         self.not_like_box.stateChanged.connect(self.not_like_box_stage_change)
 
         # Hide the checkbox in display
+        self.review_label.hide()
         self.like_box.hide()
         self.not_like_box.hide()
 
@@ -64,17 +66,18 @@ class MainWindow(QMainWindow):
         layout.addWidget(change_button)
         
         # Add check box layout into main window
-        layout.addLayout(self.check_box_layout)
-        self.check_box_layout.addWidget(self.like_box)
-        self.check_box_layout.addWidget(self.not_like_box)
+        layout.addLayout(self.review_layout)
+        layout.addStretch()
+        layout.addWidget(self.review_label)
+        layout.addStretch()
+
+        self.review_layout.addWidget(self.like_box)
+        self.review_layout.addWidget(self.not_like_box)
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
-
         widget = QWidget()
         widget.setLayout(layout)
-        
-
 
         # Set the central widget of the Window.
         self.setCentralWidget(widget)
@@ -120,7 +123,8 @@ class MainWindow(QMainWindow):
             self.output_label.setText("ERROR!!!")
 
     def enable_check_box(self):
-        """Enable the check box layout"""
+        """Enable the review layout"""
+        self.review_label.show()
         self.like_box.show()
         self.not_like_box.show()
 
