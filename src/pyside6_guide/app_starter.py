@@ -11,7 +11,9 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QMainWindow,
     QVBoxLayout,
+    QHBoxLayout,
     QWidget,
+    QCheckBox,  
     QPushButton,
 )
 from calculator_app_screen import CalculatorAppWindow
@@ -27,6 +29,7 @@ class MainWindow(QMainWindow):
         self.resize(320, 200)
 
         layout = QVBoxLayout()
+        check_box_layout = QHBoxLayout()
         title_label = QLabel("Welcome User To Calculus App!")
 
         # create a label 
@@ -41,6 +44,10 @@ class MainWindow(QMainWindow):
         enter_button.clicked.connect(self.process_input)
         change_button.clicked.connect(self.change_window)
 
+        # Create check boxes
+        self.like_box = QCheckBox("Yes, I LIke It", self)
+        self.not_like_box = QCheckBox("No, I Don't LIke It", self)
+
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
@@ -49,12 +56,19 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.output_label) 
         layout.addWidget(enter_button)
         layout.addWidget(change_button)
+        
+        # Add check box layout into main window
+        layout.addLayout(check_box_layout)
+        check_box_layout.addWidget(self.like_box)
+        check_box_layout.addWidget(self.not_like_box)
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
 
         widget = QWidget()
         widget.setLayout(layout)
+        
+
 
         # Set the central widget of the Window.
         self.setCentralWidget(widget)
