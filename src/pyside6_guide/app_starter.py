@@ -47,6 +47,10 @@ class MainWindow(QMainWindow):
         # Create check boxes
         self.like_box = QCheckBox("Yes, I LIke It", self)
         self.not_like_box = QCheckBox("No, I Don't LIke It", self)
+        self.like_box.stateChanged.connect(self.like_box_stage_change)
+        self.not_like_box.stateChanged.connect(self.not_like_box_stage_change)
+
+        # Hide the checkbox in display
         self.like_box.hide()
         self.not_like_box.hide()
 
@@ -123,6 +127,16 @@ class MainWindow(QMainWindow):
     def process_and_enable(self):
         self.process_input()
         self.enable_check_box()
+
+    def like_box_stage_change(self, state):
+        if state == 2:
+            self.not_like_box.setChecked(False)
+            print("Thank You!")
+
+    def not_like_box_stage_change(self, state):
+        if state == 2:
+            self.like_box.setChecked(False)
+            print("Thank You For Enjoying It!")
 
     def change_window(self):
         self.calculator_screen = CalculatorAppWindow(parent = self)
