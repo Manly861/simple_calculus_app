@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         self.resize(320, 200)
 
         layout = QVBoxLayout()
-        check_box_layout = QHBoxLayout()
+        self.check_box_layout = QHBoxLayout()
         title_label = QLabel("Welcome User To Calculus App!")
 
         # create a label 
@@ -41,12 +41,14 @@ class MainWindow(QMainWindow):
         # create a button
         enter_button = QPushButton("=")
         change_button = QPushButton("Change")
-        enter_button.clicked.connect(self.process_input)
+        enter_button.clicked.connect(self.process_and_enable)
         change_button.clicked.connect(self.change_window)
 
         # Create check boxes
         self.like_box = QCheckBox("Yes, I LIke It", self)
         self.not_like_box = QCheckBox("No, I Don't LIke It", self)
+        self.like_box.hide()
+        self.not_like_box.hide()
 
 
         # add widgets & layouts to main layout
@@ -58,9 +60,9 @@ class MainWindow(QMainWindow):
         layout.addWidget(change_button)
         
         # Add check box layout into main window
-        layout.addLayout(check_box_layout)
-        check_box_layout.addWidget(self.like_box)
-        check_box_layout.addWidget(self.not_like_box)
+        layout.addLayout(self.check_box_layout)
+        self.check_box_layout.addWidget(self.like_box)
+        self.check_box_layout.addWidget(self.not_like_box)
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
@@ -112,6 +114,15 @@ class MainWindow(QMainWindow):
             self.output_label.setText(f"Answer: {answer}")
         except (ValueError, AttributeError):
             self.output_label.setText("ERROR!!!")
+
+    def enable_check_box(self):
+        """Enable the check box layout"""
+        self.like_box.show()
+        self.not_like_box.show()
+
+    def process_and_enable(self):
+        self.process_input()
+        self.enable_check_box()
 
     def change_window(self):
         self.calculator_screen = CalculatorAppWindow(parent = self)
