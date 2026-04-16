@@ -18,9 +18,11 @@ class CalculatorAppWindow(QWidget):
         self.parent = parent
 
         # Set intial values of size
-        number_button_size = 30
-        width_equal_button = 30
-        height_equal_button = 65
+        default_size = 40
+        width_equal_button = default_size
+        height_equal_button = (width_equal_button * 2) +5
+        width_ans_button = (default_size *2) +  5
+        height_ans_button = default_size
         
         # Define the layouts
         input_label = QHBoxLayout()
@@ -48,6 +50,8 @@ class CalculatorAppWindow(QWidget):
                     # Is it a equal, ANS, and back button?
                     # if it is, adjust the size of it  
                     if text == "ANS":
+                        buttons.setFixedSize(width_ans_button,
+                                            height_ans_button)
                         layout.addWidget(buttons, row, column, 1, 2)
                     elif text == "=":
                         buttons.setFixedSize(width_equal_button,
@@ -56,8 +60,8 @@ class CalculatorAppWindow(QWidget):
                     elif text == "Back": 
                         layout.addWidget(buttons, row, column, 1, 2)
                     else:
-                        buttons.setFixedSize(number_button_size,
-                                            number_button_size)
+                        buttons.setFixedSize(default_size,
+                                            default_size)
                         layout.addWidget(buttons, row, column)
 
                     # Is it a DEL, AC or equal button?
