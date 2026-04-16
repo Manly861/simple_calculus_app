@@ -15,7 +15,9 @@ from PySide6.QtWidgets import (
     QWidget,
     QCheckBox,  
     QPushButton,
+    QFrame,
 )
+from PySide6.QtCore import Qt
 from calculator_app_screen import CalculatorAppWindow
 
 
@@ -31,9 +33,14 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout()
         self.review_layout = QHBoxLayout()
         title_label = QLabel("Welcome User To Calculus App!")
+        # Create a seperator line
+        self.line_separator = QFrame()
+        self.line_separator.setFrameShape(QFrame.HLine)
 
         # create a label 
         instruction = QLabel("This is the basic Calculator App. Enjoying It!")
+        self.review_label = QLabel("Do You Like My Calculator?")
+        self.review_label.setAlignment(Qt.AlignCenter)
         self.input_label = QLineEdit(placeholderText= "Enter A Number Here")
         self.answer = "Answer:"
         self.output_label = QLabel(self.answer)
@@ -45,13 +52,13 @@ class MainWindow(QMainWindow):
         change_button.clicked.connect(self.change_window)
 
         # Create check boxes
-        self.review_label = QLabel("Do You Like My Calculator?")
         self.like_box = QCheckBox("Yes, I LIke It", self)
         self.not_like_box = QCheckBox("No, I Don't LIke It", self)
         self.like_box.stateChanged.connect(self.like_box_stage_change)
         self.not_like_box.stateChanged.connect(self.not_like_box_stage_change)
 
-        # Hide the checkbox in display
+        # Hide the revirew layour in display
+        self.line_separator.hide()
         self.review_label.hide()
         self.like_box.hide()
         self.not_like_box.hide()
@@ -64,13 +71,13 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.output_label) 
         layout.addWidget(enter_button)
         layout.addWidget(change_button)
+
+        # Add review title and line separator
+        layout.addWidget(self.line_separator)
+        layout.addWidget(self.review_label)
         
         # Add check box layout into main window
         layout.addLayout(self.review_layout)
-        layout.addStretch()
-        layout.addWidget(self.review_label)
-        layout.addStretch()
-
         self.review_layout.addWidget(self.like_box)
         self.review_layout.addWidget(self.not_like_box)
 
@@ -124,6 +131,7 @@ class MainWindow(QMainWindow):
 
     def enable_check_box(self):
         """Enable the review layout"""
+        self.line_separator.show()
         self.review_label.show()
         self.like_box.show()
         self.not_like_box.show()
