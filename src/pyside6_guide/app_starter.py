@@ -97,15 +97,13 @@ class MainWindow(QMainWindow):
     def process_input(self):
         """process the input and mathematical function"""
         try:
-            # Check where is the arithmetic operation (+, -, *, /)
+            # Check where is the arithmetic operation (+, -, * or x, / or :)
             operation = ""
-            for math_operation in ["+", "-", "*", "x", "/"]:
+            for math_operation in ["+", "-", "*", "x", "/", ":"]:
                 if math_operation in self.input_label.text():
                     operation = math_operation
                     break
-                
-            
-            
+
             # Identify where is number and where is operation
             str_a = self.input_label.text()[ : (self.input_label.text().find(operation))]
             str_b = self.input_label.text()[(self.input_label.text().find(operation)) + 1 : ]
@@ -125,7 +123,7 @@ class MainWindow(QMainWindow):
                 answer = str(num_a * num_b)
 
             # Is it a division?
-            elif operation == "/":
+            elif operation == "/" or operation == ":" :
                 answer = str(num_a / num_b)
 
             else:
