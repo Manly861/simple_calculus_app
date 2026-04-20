@@ -16,6 +16,7 @@ class CalculatorAppWindow(QWidget):
         self.parent = parent
 
         # Set intial values of size
+        self.error_message = "ERROR!!!"
         default_size = 40
         width_equal_button = default_size
         height_equal_button = (width_equal_button * 2) +5
@@ -85,6 +86,9 @@ class CalculatorAppWindow(QWidget):
 
     def add_number(self, num):
         """Enter the number corresponding to the pressed button"""
+        if self.line_edit.text() == self.error_message:
+            self.line_edit.setText("")
+
         current_text = self.line_edit.text()
         self.line_edit.setAlignment(Qt.AlignLeft)
         self.line_edit.setText(current_text + num)
@@ -92,13 +96,13 @@ class CalculatorAppWindow(QWidget):
     def process_input(self):
         """process the input and print the output"""
         try:
-            # Align the line edit and using eval() function to process inputs
+            # Align the line edit and use eval() function to process inputs
             self.line_edit.setAlignment(Qt.AlignRight)
             self.answer = round(eval(self.line_edit.text()), 2)
             self.line_edit.setText(str(self.answer))
 
         except (NameError, SyntaxError, TypeError, ZeroDivisionError ):
-            self.line_edit.setText("ERROR!!!")
+            self.line_edit.setText(self.error_message)
     
     def get_the_previous_answer(self):
         """recall the previous output"""
@@ -116,13 +120,13 @@ class CalculatorAppWindow(QWidget):
             
         except AttributeError:
             self.line_edit.setAlignment(Qt.AlignRight)
-            self.line_edit.setText("ERROR!!!")
+            self.line_edit.setText(self.error_message)
 
     def delete(self):
         """delete one letter each time it is pressed"""
         # Is it a "ERROR!!!" message?
         # if yes, clear it
-        if self.line_edit.text() == "ERROR!!!":
+        if self.line_edit.text() == self.error_message:
             self.line_edit.clear()
 
         # if no, delete one letter each time the button is pressed
