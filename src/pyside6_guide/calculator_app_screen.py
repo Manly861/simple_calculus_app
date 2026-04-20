@@ -1,13 +1,11 @@
 import sys
 from PySide6.QtWidgets import (
-    QApplication, 
-    QVBoxLayout, 
+    QApplication,
     QHBoxLayout,
     QGridLayout, 
     QLineEdit, 
     QPushButton, 
-    QWidget,
-    QSizePolicy, 
+    QWidget, 
     )
 from PySide6.QtCore import Qt
 
