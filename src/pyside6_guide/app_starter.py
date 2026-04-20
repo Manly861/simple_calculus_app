@@ -98,14 +98,20 @@ class MainWindow(QMainWindow):
         """process the input and mathematical function"""
         try:
             # Check where is the arithmetic operation (+, -, * or x, / or :)
+            math_op = ["+", "-", "*", "x", "/", ":"]
             operation = ""
             operation_index = 0
-            starting_check_point = 0
-            if self.input_label.text().count("-") > 1:
-                starting_check_point = 1
+            check_point = 0
+
+            # Is the input a negative number?
+            # if yes, set the starting point of checking at 1 
+            if (self.input_label.text().count("-") > 1 
+                or self.input_label.text().find("-") == 0):
+                check_point = 1
             
-            for index in range(starting_check_point, len(self.input_label.text())):
-                if self.input_label.text()[index] in ["+", "-", "*", "x", "/", ":"]:
+            # Foor loops to identify the operation and its index in input
+            for index in range(check_point, len(self.input_label.text())):
+                if self.input_label.text()[index] in math_op:
                     operation = self.input_label.text()[index]
                     operation_index = index
                     break
