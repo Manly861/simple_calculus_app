@@ -99,10 +99,12 @@ class MainWindow(QMainWindow):
         try:
             # Check where is the arithmetic operation (+, -, *, /)
             operation = ""
-            if "+" or "-" or "*" or "/" in self.input_label.text():
-                for i in range(len(self.input_label.text())):
-                    if not self.input_label.text()[i].isdigit():
-                        operation = self.input_label.text()[i]
+            for math_operation in ["+", "-", "*", "x", "/"]:
+                if math_operation in self.input_label.text():
+                    operation = math_operation
+                    break
+                
+            
             
             # Identify where is number and where is operation
             str_a = self.input_label.text()[ : (self.input_label.text().find(operation))]
@@ -119,7 +121,7 @@ class MainWindow(QMainWindow):
                 answer = str(num_a - num_b)
 
             # Is it a multiplication?
-            elif operation == "x":
+            elif operation == "*" or operation == "x":
                 answer = str(num_a * num_b)
 
             # Is it a division?
@@ -142,7 +144,6 @@ class MainWindow(QMainWindow):
         self.not_like_box.show()
         self.appreciation.show()
 
-
     def process_and_enable(self):
         self.process_input()
         self.enable_check_box()
@@ -153,7 +154,6 @@ class MainWindow(QMainWindow):
             self.appreciation.setText("<b><i>Thank You So Much!!!<i><b>")
         elif state == 0:
             self.appreciation.setText("<i> I'm waiting for your response :) <i>")
-
 
     def not_like_box_stage_change(self, state):
         if state == 2:
