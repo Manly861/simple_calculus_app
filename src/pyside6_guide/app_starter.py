@@ -143,7 +143,7 @@ class MainWindow(QMainWindow):
             
             # Print the final result
             self.output_label.setText(f"Answer: {answer}")
-        except (ValueError, AttributeError):
+        except (ValueError, AttributeError, ZeroDivisionError):
             self.output_label.setText("ERROR!!!")
 
     def enable_check_box(self):
