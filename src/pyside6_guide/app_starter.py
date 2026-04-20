@@ -35,7 +35,8 @@ class MainWindow(QMainWindow):
         title_label = QLabel("Welcome User To Calculus App!")
 
         # create labels and a line edit
-        instruction = QLabel("This is the basic Calculator App. Enjoying It!")
+        greeting_text = "This is the basic Calculator App. Enjoying It!"
+        greeting = QLabel(greeting_text)
         self.review_label = QLabel("Do You Like My Calculator?")
         self.review_label.setAlignment(Qt.AlignCenter)
         self.appreciation = QLabel("...")
@@ -70,7 +71,7 @@ class MainWindow(QMainWindow):
 
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
-        layout.addWidget(instruction)
+        layout.addWidget(greeting)
         layout.addWidget(self.input_label)
         layout.addWidget(self.output_label) 
         layout.addWidget(enter_button)
@@ -83,6 +84,7 @@ class MainWindow(QMainWindow):
         # Add review layout (check boxes and appreciate message)
         layout.addLayout(self.review_layout)
         self.review_layout.addWidget(self.like_box)
+        self.review_layout.addStretch()
         self.review_layout.addWidget(self.not_like_box)
         layout.addWidget(self.appreciation)
 
@@ -143,6 +145,7 @@ class MainWindow(QMainWindow):
             
             # Print the final result
             self.output_label.setText(f"Answer: {answer}")
+
         except (ValueError, AttributeError, ZeroDivisionError):
             self.output_label.setText("ERROR!!!")
 
