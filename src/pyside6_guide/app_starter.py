@@ -99,14 +99,20 @@ class MainWindow(QMainWindow):
         try:
             # Check where is the arithmetic operation (+, -, * or x, / or :)
             operation = ""
-            for math_operation in ["+", "-", "*", "x", "/", ":"]:
-                if math_operation in self.input_label.text():
-                    operation = math_operation
+            operation_index = 0
+            starting_check_point = 0
+            if self.input_label.text().count("-") > 1:
+                starting_check_point = 1
+            
+            for index in range(starting_check_point, len(self.input_label.text())):
+                if self.input_label.text()[index] in ["+", "-", "*", "x", "/", ":"]:
+                    operation = self.input_label.text()[index]
+                    operation_index = index
                     break
 
             # Identify where is number and where is operation
-            str_a = self.input_label.text()[ : (self.input_label.text().find(operation))]
-            str_b = self.input_label.text()[(self.input_label.text().find(operation)) + 1 : ]
+            str_a = self.input_label.text()[ : operation_index]
+            str_b = self.input_label.text()[operation_index + 1 : ]
             num_a = float(str_a)
             num_b = float(str_b)
 
