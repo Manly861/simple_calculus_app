@@ -16,7 +16,6 @@ class CalculatorAppWindow(QWidget):
         self.parent = parent
 
         # Set intial values of size
-        self.is_answer = False
         self.error_message = "ERROR!!!"
         default_size = 40
         width_equal_button = default_size
@@ -87,11 +86,10 @@ class CalculatorAppWindow(QWidget):
 
     def add_number(self, num):
         """Enter the number or math operation into the line edit"""
-        if self.line_edit.text() == self.error_message or self.is_answer:
+        if self.line_edit.text() == self.error_message:
             self.line_edit.setText("")
-        else:
-            current_text = self.line_edit.text()
-            
+
+        current_text = self.line_edit.text()
         self.line_edit.setAlignment(Qt.AlignLeft)
         self.line_edit.setText(current_text + num)
     
@@ -102,11 +100,10 @@ class CalculatorAppWindow(QWidget):
             self.line_edit.setAlignment(Qt.AlignRight)
             self.answer = round(eval(self.line_edit.text()), 2)
             self.line_edit.setText(str(self.answer))
-        
+
         except (NameError, SyntaxError, TypeError, ZeroDivisionError ):
             self.line_edit.setText(self.error_message)
-
-        self.is_answer = True
+    
     def get_the_previous_answer(self):
         """recall the previous output"""
         try:
@@ -143,9 +140,12 @@ class CalculatorAppWindow(QWidget):
         self.line_edit.clear()
     
     def go_back_to_main_window(self):
-        self.parent.show()
-        self.hide()
-
+        try:
+            self.parent.show()
+            self.hide()
+        except:
+            self.line_edit.setAlignment(Qt.AlignCenter)
+            self.line_edit.setText("Ops! That is not where it starts")
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = CalculatorAppWindow()
