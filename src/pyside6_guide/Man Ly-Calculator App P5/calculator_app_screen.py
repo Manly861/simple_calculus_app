@@ -16,6 +16,7 @@ class CalculatorAppWindow(QWidget):
         self.parent = parent
 
         # Set intial values of size
+        self.is_answer = False
         self.error_message = "ERROR!!!"
         default_size = 40
         width_equal_button = default_size
@@ -85,11 +86,12 @@ class CalculatorAppWindow(QWidget):
         self.setLayout(layout)
 
     def add_number(self, num):
-        """Enter the number corresponding to the pressed button"""
-        if self.line_edit.text() == self.error_message:
+        """Enter the number or math operation into the line edit"""
+        if self.line_edit.text() == self.error_message or self.is_answer:
             self.line_edit.setText("")
-
-        current_text = self.line_edit.text()
+        else:
+            current_text = self.line_edit.text()
+            
         self.line_edit.setAlignment(Qt.AlignLeft)
         self.line_edit.setText(current_text + num)
     
@@ -100,10 +102,11 @@ class CalculatorAppWindow(QWidget):
             self.line_edit.setAlignment(Qt.AlignRight)
             self.answer = round(eval(self.line_edit.text()), 2)
             self.line_edit.setText(str(self.answer))
-
+        
         except (NameError, SyntaxError, TypeError, ZeroDivisionError ):
             self.line_edit.setText(self.error_message)
-    
+
+        self.is_answer = True
     def get_the_previous_answer(self):
         """recall the previous output"""
         try:
@@ -129,7 +132,7 @@ class CalculatorAppWindow(QWidget):
         if self.line_edit.text() == self.error_message:
             self.line_edit.clear()
 
-        # if no, delete one letter each time the button is pressed
+        # if no, delete one letter each time presseing the button
         else:
             current_text = self.line_edit.text()
             new_text = current_text[:-1]
@@ -138,7 +141,6 @@ class CalculatorAppWindow(QWidget):
     def clear(self):
         """Clear the text in the line edit"""
         self.line_edit.clear()
-
     
     def go_back_to_main_window(self):
         self.parent.show()
