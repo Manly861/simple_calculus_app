@@ -98,29 +98,31 @@ class MainWindow(QMainWindow):
         
     def process_input(self):
         """process the input and mathematical function"""
+        user_input = self.input_label.text()
         try:
             # Check where is the arithmetic operation (+, -, * or x, / or :)
             math_op = ["+", "-", "*", "x", "/", ":"]
             operation = ""
+            op_count = 0
             operation_index = 0
             check_point = 0
 
             # Is the input a negative number?
             # if yes, set the starting point of checking at 1 
-            if (self.input_label.text().count("-") > 1 
-                or self.input_label.text().find("-") == 0):
+            if (user_input.count("-") > 1 
+                or user_input.find("-") == 0):
                 check_point = 1
             
             # Foor loops to identify the operation and its index in input
-            for index in range(check_point, len(self.input_label.text())):
-                if self.input_label.text()[index] in math_op:
-                    operation = self.input_label.text()[index]
+            for index in range(check_point, len(user_input)):
+                if user_input[index] in math_op:
+                    operation = user_input[index]
                     operation_index = index
                     break
 
             # Identify where is number and where is operation
-            str_a = self.input_label.text()[ : operation_index]
-            str_b = self.input_label.text()[operation_index + 1 : ]
+            str_a = user_input[ : operation_index]
+            str_b = user_input[operation_index + 1 : ]
             num_a = float(str_a)
             num_b = float(str_b)
 
@@ -139,15 +141,15 @@ class MainWindow(QMainWindow):
             # Is it a division?
             elif operation == "/" or operation == ":" :
                 answer = str(num_a / num_b)
-
-            else:
-                answer = "ERROR!!!"
             
             # Print the final result
             self.output_label.setText(f"Answer: {answer}")
 
-        except (ValueError, AttributeError, ZeroDivisionError):
+        except (AttributeError, ZeroDivisionError):
             self.output_label.setText("ERROR!!!")
+        except ValueError:
+            self.output_label.setText("I AM SORRY")
+
 
     def enable_check_box(self):
         """Enable the review layout"""
@@ -162,26 +164,28 @@ class MainWindow(QMainWindow):
         self.enable_check_box()
 
     def like_box_stage_change(self, state):
+        thanks_message = "<b><i>Thank You So Much!!!<i><b>"
+        waiting_message = "<i> I'm waiting for your response :)<i>"
         if state == 2:
             self.not_like_box.setChecked(False)
-            self.appreciation.setText("<b><i>Thank You So Much!!!<i><b>")
+            self.appreciation.setText(thanks_message)
         elif state == 0:
-            self.appreciation.setText("<i> I'm waiting for your response :) <i>")
+            self.appreciation.setText(waiting_message)
 
     def not_like_box_stage_change(self, state):
+        thanks_message = "<b><i> Thank You For Enjoying It! <i><b>"
+        waiting_message = "<i>Just Take Time! I'm waiting for you :)<i>"
         if state == 2:
             self.like_box.setChecked(False)
-            self.appreciation.setText("<b><i> Thank You For Enjoying It! <i><b>")
+            self.appreciation.setText(thanks_message)
         elif state ==  0:
-            self.appreciation.setText("<i>Just Take Time! I'm waiting for your response :)<i>")
+            self.appreciation.setText(waiting_message)
 
     def change_window(self):
         self.calculator_screen = CalculatorAppWindow(parent = self)
         self.calculator_screen.show()
         self.hide()
         
-
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
