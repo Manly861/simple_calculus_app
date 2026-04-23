@@ -104,14 +104,16 @@ class MainWindow(QMainWindow):
         user_input = self.input_label.text()
         input_error_message_1 = "<i><b>Note:</b> Please double-check "
         input_error_message_1 += "the charactersyou’ve entered."
-        input_error_message_1 += "They should only include mathematical "
-        input_error_message_1 += "symbols such as +, -, *, x, :, and /.</i>"
-        input_error_message_2 = "<i><b>Also</b>, this program can only perform simple "
-        input_error_message_2 += "calculations, for example: 1+1, "
+        input_error_message_1 += "They should only include mathematical sym"
+        input_error_message_1 += "bols such as +, -, *, x, :, and /.</i>"
+        input_error_message_2 = "<i><b>Also</b>, this program can only perfor"
+        input_error_message_2 += "m simple calculations, for example: 1+1, "
         input_error_message_2 += "2*123456, -12/-6, 1:3, 8x9 etc. </i>"
-        input_error_message_2 += "<center><br><i>If you want more advanced features, "
-        input_error_message_2 += "click 'Change' for a surprise.</i></br></center>"
-        full_input_error_message = input_error_message_1 + "<br><br>" + input_error_message_2
+        input_error_message_2 += "<center><br><i>If you want more advanced "
+        input_error_message_2 += "features, click 'Change' for a surprise."
+        full_input_error_message = input_error_message_1 + "<br><br>"
+        full_input_error_message += input_error_message_2
+
         # Start process inputs
         try:
             # Check where is the arithmetic operation (+, -, * or x, / or :)
