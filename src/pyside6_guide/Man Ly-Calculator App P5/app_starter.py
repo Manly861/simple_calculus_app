@@ -16,6 +16,7 @@ from PySide6.QtWidgets import (
     QCheckBox,  
     QPushButton,
     QFrame,
+    QMessageBox,
 )
 from PySide6.QtCore import Qt
 from calculator_app_screen import CalculatorAppWindow
@@ -44,6 +45,7 @@ class MainWindow(QMainWindow):
         self.input_label = QLineEdit(placeholderText= "Enter A Number Here")
         self.answer = "Answer:"
         self.output_label = QLabel(self.answer)
+        self.output_label.setWordWrap(True)
 
         # Create a seperator line
         self.line_separator = QFrame()
@@ -98,7 +100,19 @@ class MainWindow(QMainWindow):
         
     def process_input(self):
         """process the input and mathematical function"""
+        # Set initial value and error messages
         user_input = self.input_label.text()
+        input_error_message_1 = "<i><b>Note:</b> Please double-check "
+        input_error_message_1 += "the charactersyou’ve entered."
+        input_error_message_1 += "They should only include mathematical "
+        input_error_message_1 += "symbols such as +, -, *, x, :, and /.</i>"
+        input_error_message_2 = "<i><b>Also</b>, this program can only perform simple "
+        input_error_message_2 += "calculations, for example: 1+1, "
+        input_error_message_2 += "2*123456, -12/-6, 1:3, 8x9 etc. </i>"
+        input_error_message_2 += "<center><br><i>If you want more advanced features, "
+        input_error_message_2 += "click 'Change' for a surprise.</i></br></center>"
+        full_input_error_message = input_error_message_1 + "<br><br>" + input_error_message_2
+        # Start process inputs
         try:
             # Check where is the arithmetic operation (+, -, * or x, / or :)
             math_op = ["+", "-", "*", "x", "/", ":"]
@@ -148,7 +162,11 @@ class MainWindow(QMainWindow):
         except (AttributeError, ZeroDivisionError):
             self.output_label.setText("ERROR!!!")
         except ValueError:
-            self.output_label.setText("I AM SORRY")
+            message =  QMessageBox(self)
+            message.setWindowTitle("Ops, Some Errors!")
+            message.setText(full_input_error_message)
+            message.show()
+            message.exec()
 
 
     def enable_check_box(self):
@@ -164,8 +182,8 @@ class MainWindow(QMainWindow):
         self.enable_check_box()
 
     def like_box_stage_change(self, state):
-        thanks_message = "<b><i>Thank You So Much!!!<i><b>"
-        waiting_message = "<i> I'm waiting for your response :)<i>"
+        thanks_message = "<b><i>Thank You So Much!!!</i></b>"
+        waiting_message = "<i> I'm waiting for your response :)</i>"
         if state == 2:
             self.not_like_box.setChecked(False)
             self.appreciation.setText(thanks_message)
@@ -173,8 +191,8 @@ class MainWindow(QMainWindow):
             self.appreciation.setText(waiting_message)
 
     def not_like_box_stage_change(self, state):
-        thanks_message = "<b><i> Thank You For Enjoying It! <i><b>"
-        waiting_message = "<i>Just Take Time! I'm waiting for you :)<i>"
+        thanks_message = "<b><i> Thank You For Enjoying It! </i></b>"
+        waiting_message = "<i>Just Take Time! I'm waiting for you :)</i>"
         if state == 2:
             self.like_box.setChecked(False)
             self.appreciation.setText(thanks_message)
